@@ -43,17 +43,6 @@ Retype New Password:
 ```
 
 
-## 国外IPアドレスフィルタの設定
-
-デフォルトは「有効」で、海外からアクセス時、メール送信、WP／MTの更新等が不可となっている。
-
-参考：[国外IPアドレスフィルタ – さくらのサポート情報](https://help.sakura.ad.jp/hc/ja/articles/206054272)
-
-ステークホルダーに確認をとり、頻繁に海外からアクセスする機会があるなら、「無効」にしておく必要があるかもしれない。
-
-なお、「有効」にしていてる場合でも、Gmail のアカウント設定でさくらのレンタルサーバーの SMTP 情報を設定してメール送信することは可能とのこと（カスタマーセンターからの回答）。
-
-
 ## ドメインの設定
 
 独自ドメインをさくらインターネット以外で取得したなら、「他社ドメインの追加」にて、独自ドメインを追加する。
@@ -127,7 +116,7 @@ RewriteRule .* - [R=404]
 
 ## `.ftpaccess` の設置
 
-ホームディレクトリ直下に以下のような `.ftpaccess` を置いておくことで、FTP/FTPS でのアクセスを防止できる（SFTP は、ひきつづき利用可能）。
+ホームディレクトリ直下に以下のような `.ftpaccess` を置いておくことで、FTP/FTPS でのアクセスを防止する（SFTP は、ひきつづき利用可能）。
 
 ＊ログインそのものはできるが、その後の操作ができない。平文のFTPでアクセスする習慣をやめさせることができるという程度の、間接的なセキュリティ対策。
 
@@ -165,7 +154,39 @@ DB の文字コードは、（特段の理由がなければ）「UTF-8」にす
 
 パスワードはちゃんと推測されにくいものにする。
 
-データベース・サーバの名前（mysqlXXX.db.sakura.ne.jp）はこの画面でしか確認できないので、メモっておく。
+データベース・サーバの名前（mysqlYYY.db.sakura.ne.jp）はこの画面でしか確認できないので、メモっておく。
+
+
+## `.my.conf` の設置
+
+ホームディレクトリ直下に以下のような `.my.conf` を置いておくことで、`mysql` や `mysqldump` などのコマンド実行時にパスワード入力等を省略できる。
+
+```ini
+[client]
+user=XXX
+password=ZZZ
+host=mysqlYYY.db.sakura.ne.jp
+
+[mysqldump]
+default-character-set=binary
+single-transaction
+```
+
+これがあると、
+
+```sh-session
+% mysqldump --default-character-set=binary --single-transaction -u XXX -p -h mysqlYYY.db.sakura.ne.jp dbname > dbname.sql
+```
+
+が、
+
+```sh-session
+% mysqldump dbname > dbname.sql
+```
+
+で済む。
+
+＊データベースのパスワードを平文で置いておくことになるので、セキュリティ上は注意が必要。とはいえ、WordPress や Movable Type を設置すれば  `wp-config.php` や `mt-config.cgi` にはどのみちデータベースのパスワードが記載されるため、それと同様である。
 
 
 ## 「シンプル監視」の設定
@@ -178,9 +199,7 @@ DB の文字コードは、（特段の理由がなければ）「UTF-8」にす
 
 参考：[シンプル監視 – さくらのサポート情報](https://help.sakura.ad.jp/hc/ja/articles/206217402)
 
-- 既存の設定をコピーして、以下のような項目を適宜設定。
-  - 監視対象のサーバーのIPアドレスを指定。
-  - HTTP を監視対象にする（適宜、HTTPS も）。
+参考：[rinopo/sakura-simplemonitor](https://github.com/rinopo/sakura-simplemonitor)
 
 ---
 
@@ -205,3 +224,15 @@ SpamAction	0
 - 0：フィルタのみ利用（ヘッダに X-Spam-Flag: YES を追加）
 - 1：「迷惑メール」フォルダに保存（推奨）
 - 2：メールを破棄（迷惑メールでないメールも破棄する恐れがあります）
+
+---
+
+## 国外IPアドレスフィルタの設定
+
+デフォルトは「有効」で、海外からアクセス時、メール送信、WP／MTの更新等が不可となっている。
+
+参考：[国外IPアドレスフィルタ – さくらのサポート情報](https://help.sakura.ad.jp/hc/ja/articles/206054272)
+
+ステークホルダーに確認をとり、頻繁に海外からアクセスする機会があるなら、「無効」にしておく必要があるかもしれない。
+
+なお、「有効」にしていてる場合でも、Gmail のアカウント設定でさくらのレンタルサーバーの SMTP 情報を設定してメール送信することは可能とのこと（カスタマーセンターからの回答）。
