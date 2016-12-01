@@ -2,6 +2,12 @@
 
 さくらのレンタルサーバを借りたとき最初にすること
 
+## SSH 用のキー・ペアを作成して登録
+
+鍵を作成して登録しておくことで、パスワード無しで SSH ログインできるようになる。
+
+[rinopo/sakura-ssh-setup](https://github.com/rinopo/sakura-ssh-setup) を参照。
+
 
 ## 管理者パスワードの変更
 
@@ -15,7 +21,7 @@ New Password:
 Retype New Password:
 ```
 
-＊[サーバーコントロールパネル](https://secure.sakura.ad.jp/rscontrol/)のパスワードも連動して変わる。
+＊上記コマンドで[サーバーコントロールパネル](https://secure.sakura.ad.jp/rscontrol/)のパスワードも連動して変わる。
 
 参考：[メールアドレスとパスワードの設定で利用できる文字列 – さくらのサポート情報](https://help.sakura.ad.jp/hc/ja/articles/206108842)
 
@@ -92,7 +98,7 @@ Retype New Password:
   - 指定フォルダ：`/dev/public`
   - SPFを利用する：無効（デフォルト）
 
-＊「wwwを付与せずマルチドメインとして使用する」を選択するのは、本番サイトと同じ同じ条件でテスト・サイトを作成したいため。また、「www.dev.example.com」などの余計なドメインを存在させたくないため。
+＊「wwwを付与せずマルチドメインとして使用する」を選択するのは、本番サイトと同じ同じ条件でテスト・サイトを作成したいため。また、 `www.dev.example.com` などの余計なドメインを存在させたくないため。
 
 
 ## `.htaccess` の設置
@@ -175,63 +181,6 @@ DB の文字コードは、（特段の理由がなければ）「UTF-8」にす
 - 既存の設定をコピーして、以下のような項目を適宜設定。
   - 監視対象のサーバーのIPアドレスを指定。
   - HTTP を監視対象にする（適宜、HTTPS も）。
-
----
-
-## SSH 用のキー・ペアを作成して登録
-
-鍵を作成して登録しておくことで、パスワード無しで SSH ログインできるようになる。
-
-`ssh-setup.sh [ユーザー名]` をローカルで実行する。
-
-＊上記「ユーザー名」はさくらのレンタルサーバのユーザー名。
-
-このスクリプトは以下のことを実行する。
-
-- `ssh-keygen` でローカルの `~/.ssh` に、キー・ペア `XXX` /  `XXX.pub` を作る。
-- `ssh-copy-id` でさくらのサーバーの `~/.ssh/authorized_keys` に公開鍵を登録する。
-- ローカルの `~/.ssh/config` に、ホスト名（`XXX.sakura.ne.jp`）、ユーザー名（`XXX`）、秘密鍵を追記する。
-
-次回以降、`ssh XXX` のみでログインできるようになる。
-
-実行例：
-
-```sh-session
-% ./ssh-setup.sh XXX
-Generating public/private rsa key pair.
-Your identification has been saved in XXX.
-Your public key has been saved in XXX.pub.
-The key fingerprint is:
-SHA256:qyJLN+snTN9L16qmFkqyrqf/arQd7x4uknJPsjJ9T1A rino@mb-2014-i.local
-The key's randomart image is:
-+---[RSA 2048]----+
-|                 |
-|                 |
-|      E          |
-|     .           |
-|    .   S        |
-|  o +..  . .     |
-| ooX+=ooo . .    |
-|+.@=O==+o. .     |
-|o%*X=XBooo.      |
-+----[SHA256]-----+
-/usr/local/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "XXX.pub"
-/usr/local/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
-/usr/local/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
-XXX@XXX.sakura.ne.jp's password:
-
-Number of key(s) added:        1
-
-Now try logging into the machine, with:   "ssh 'XXX@XXX.sakura.ne.jp'"
-and check to make sure that only the key(s) you wanted were added.
-
-/Users/xxx/.ssh/config にて下記のように設定されました：
-user XXX
-hostname XXX.sakura.ne.jp
-identityfile ~/.ssh/XXX
-
-次のコマンドで SSH できることを確認してください: ssh XXX
-```
 
 ---
 
