@@ -100,7 +100,7 @@ DirectoryIndex index.html index.htm index.shtml index.php index.cgi .ht
 RewriteEngine on
 RewriteCond %{HTTP_HOST} .*\.sakura\.ne\.jp$ [nocase]
 RewriteCond %{REMOTE_ADDR} !^27\.133\.139\.(3[2-9]|4[0-7])$
-RewriteRule .* - [R=404]
+RewriteRule .* - [forbidden]
 ```
 
 ディレクトリ一覧を禁止するには、（さくらのレンタルサーバーでは `Options -Indexes` は利用できないので、）`IndexIgnore *` を利用する（エラーにならないが何も表示されない）か、上記のように `DirectoryIndex` の最後に `.ht` を記述する（403エラーになる）。

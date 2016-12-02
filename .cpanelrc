@@ -1,0 +1,5 @@
+Mail    1
+MailQuota    %%MAIL_QUOTA%%
+VirusScan    1
+SpamFilter    1
+SpamAction    0

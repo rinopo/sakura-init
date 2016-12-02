@@ -1,0 +1,8 @@
+# ディレクトリ一覧の拒否。
+DirectoryIndex index.html index.htm index.shtml index.php index.cgi .ht
+
+# XXX.sakura.ne.jp へのアクセスを拒否（404）。
+RewriteEngine on
+RewriteCond %{HTTP_HOST} .*\.sakura\.ne\.jp$ [nocase]
+RewriteCond %{REMOTE_ADDR} !^27\.133\.139\.(3[2-9]|4[0-7])$
+RewriteRule .* - [forbidden]
