@@ -70,7 +70,7 @@ if [ ${Os} == "Mac" ]; then
   read -p "ブラウザでサーバコントロールパネルを開く [y/n] " -n 1 -r
   echo ""
 
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
+  if [[ ${REPLY} =~ ^[Yy]$ ]]; then
 
     open -g "https://secure.sakura.ad.jp/rscontrol/?domain=${User}.sakura.ne.jp"
 
@@ -85,7 +85,7 @@ echo "--"
 read -p "管理者パスワードを変更 [y/n] " -n 1 -r
 echo ""
 
-if [[ $REPLY =~ ^[Yy]$ ]]; then
+if [[ ${REPLY} =~ ^[Yy]$ ]]; then
 
   ssh ${User} -t "passwd"
 
@@ -98,7 +98,7 @@ echo "--"
 read -p "アクセスログを設定 [y/n] " -n 1 -r
 echo ""
 
-if [[ $REPLY =~ ^[Yy]$ ]]; then
+if [[ ${REPLY} =~ ^[Yy]$ ]]; then
 
   ssh ${User} "mkdir -v -p ~/log"
   ssh ${User} "echo ${Log_months} > ~/log/month" \
@@ -117,7 +117,7 @@ echo "--"
 read -p "DocumentRoot ディレクトリの作成 [y/n] " -n 1 -r
 echo ""
 
-if [[ $REPLY =~ ^[Yy]$ ]]; then
+if [[ ${REPLY} =~ ^[Yy]$ ]]; then
 
   echo "  新規に作成されたディレクトリが以下に表示されます。"
   ssh ${User} "mkdir -v -p ~/www/${Docroots}" \
@@ -132,7 +132,7 @@ echo "--"
 read -p ".htaccess の設置 [y/n] " -n 1 -r
 echo ""
 
-if [[ $REPLY =~ ^[Yy]$ ]]; then
+if [[ ${REPLY} =~ ^[Yy]$ ]]; then
 
   echo ""
   ssh ${User} "umask 177; cd ~/www; curl -fsSL -O ${Repo}/.htaccess && cat .htaccess"
@@ -146,7 +146,7 @@ echo "--"
 read -p ".ftpaccess の設置 [y/n] " -n 1 -r
 echo ""
 
-if [[ $REPLY =~ ^[Yy]$ ]]; then
+if [[ ${REPLY} =~ ^[Yy]$ ]]; then
 
   echo ""
   ssh ${User} "umask 177; curl -fsSL -O ${Repo}/.ftpaccess && cat .ftpaccess"
@@ -160,7 +160,19 @@ echo "--"
 read -p ".my.cnf の設置 [y/n] " -n 1 -r
 echo ""
 
-if [[ $REPLY =~ ^[Yy]$ ]]; then
+if [[ ${REPLY} =~ ^[Yy]$ ]]; then
+
+  read -p "DBのユーザー名 [${User}]: " -r
+  echo ""
+  if [ ! ${REPLY} == "" ]; then
+    readonly Db_user=${REPLY}
+  else
+    readonly Db_user=${User}
+  fi
+
+  read -p "DBのパスワード: " -r -s
+  echo ""
+  readonly Db_password=${REPLY}
 
   echo ""
   ssh ${User} "umask 177; curl -fsSL -O ${Repo}/.my.cnf && cat .my.cnf"
