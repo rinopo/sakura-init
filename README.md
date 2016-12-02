@@ -45,27 +45,23 @@ Retype New Password:
 
 ## ドメインの設定
 
-独自ドメインをさくらインターネット以外で取得したなら、「他社ドメインの追加」にて、独自ドメインを追加する。
+独自ドメインを取得したなら、「ドメイン設定 ＞ 新しいドメインの追加」にて、独自ドメインを追加する。
 
 以下は設定の例。
 
-本番サイトと同じ階層、同じ条件でテスト・サイトを作成したいので、デフォルトの DocumentRoot（`~/www`）は利用せず、以下のようにディレクトリを切る。
+本番サイトと同じ階層、同じ条件でテスト・サイトを作成したいので、デフォルトの DocumentRoot（`~/www`）は利用せず、（必要に応じて）以下のようにディレクトリを切る。
 
 | ドメイン | DocumentRoot | 用途 |
 | --- | --- | --- |
-| www | `~/www/prd/public` | 本番環境（Production） |
-| stg | `~/www/stg/public` | 確認環境（Staging） |
-| dev | `~/www/dev/public` | 開発環境（Development） |
-| ... | `~/www/.../public` | ... |
+| (www.)example.com | `~/www/prd/public` | 本番環境（Production） |
+| stg.example.com | `~/www/stg/public` | 確認環境（Staging） |
+| dev.example.com | `~/www/dev/public` | 開発環境（Development） |
+| test.example.com | `~/www/test/public` | 更新練習用 |
+| old.example.com | `~/www/old/public` | 旧バージョンの保存用 |
+| ... | `~/www/.../public` | etc... |
 
 ```sh-session
 % mkdir -p ~/www/{prd,dev,stg}/public
-```
-
-本来の DocumentRoot 直下（`~/www`）には、空の `index.html` を置いておく。
-
-```csh
-% touch ~/www/index.html
 ```
 
 サーバーコントロールパネルからのドメインの追加は、以下のようにする。
@@ -186,7 +182,7 @@ single-transaction
 
 で済む。
 
-＊データベースのパスワードを平文で置いておくことになるので、セキュリティ上は注意が必要。とはいえ、WordPress や Movable Type を設置すれば  `wp-config.php` や `mt-config.cgi` にはどのみちデータベースのパスワードが記載されるため、それと同様である。
+＊データベースのパスワードを平文で置いておくことになるので、セキュリティ上は注意が必要。とはいえ、たとえば WordPress や Movable Type を設置すれば  `wp-config.php` や `mt-config.cgi` にはどのみちデータベースのパスワードが記載されるため、危険性はそれと同程度である。
 
 
 ## 「シンプル監視」の設定
