@@ -21,7 +21,7 @@ New Password:
 Retype New Password:
 ```
 
-＊上記コマンドで[サーバーコントロールパネル](https://secure.sakura.ad.jp/rscontrol/)のパスワードも連動して変わる。
+＊上記コマンドで[サーバコントロールパネル](https://secure.sakura.ad.jp/rscontrol/)のパスワードも連動して変わる。
 
 参考：[メールアドレスとパスワードの設定で利用できる文字列 – さくらのサポート情報](https://help.sakura.ad.jp/hc/ja/articles/206108842)
 
@@ -232,3 +232,16 @@ SpamAction	0
 ステークホルダーに確認をとり、頻繁に海外からアクセスする機会があるなら、「無効」にしておく必要があるかもしれない。
 
 なお、「有効」にしていてる場合でも、Gmail のアカウント設定でさくらのレンタルサーバーの SMTP 情報を設定してメール送信することは可能とのこと（カスタマーセンターからの回答）。
+
+---
+
+## その他
+
+- [rinopo/sakura-user-js](https://github.com/rinopo/sakura-user-js) …… さくらのレンタルサーバのサーバコントロールパネル用の tampermonkey / greasemonkey スクリプト。
+- [さくらのレンタルサーバのMLのカスタマイズ - Qiita](http://qiita.com/rinopo/items/58983a8c83467fb030db)
+
+---
+
+- この内容は非公式のものであり、さくらインターネット株式会社様とは一切関係ございません。
+- 無保証です（[LICENSE](./LICENSE)）。
+- Issue、PR、フォークは歓迎いたします。
