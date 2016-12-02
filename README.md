@@ -13,6 +13,8 @@
 
 初期パスワードはメールで平文で送られてくる。ちゃんと推測されにくいパスワードに変更しておく。  
 
+参考：[メールアドレスとパスワードの設定で利用できる文字列 – さくらのサポート情報](https://help.sakura.ad.jp/hc/ja/articles/206108842)
+
 ```sh-session
 % passwd
 Changing local password for XXX
@@ -23,12 +25,10 @@ Retype New Password:
 
 ＊上記コマンドで[サーバコントロールパネル](https://secure.sakura.ad.jp/rscontrol/)のパスワードも連動して変わる。
 
-参考：[メールアドレスとパスワードの設定で利用できる文字列 – さくらのサポート情報](https://help.sakura.ad.jp/hc/ja/articles/206108842)
-
 
 ## アクセスログの設定
 
-アクセスログは、なるべく多くの情報を残す設定にしておく。
+アクセスログは、なるべく多くの情報を残す設定にしておく（ただし、ディスク容量を消費する）。
 
 - 「残す」
 - 「エラーログも残す」
@@ -83,7 +83,7 @@ Retype New Password:
   - 指定フォルダ：`/dev/public`
   - SPFを利用する：無効（デフォルト）
 
-＊「wwwを付与せずマルチドメインとして使用する」を選択するのは、本番サイトと同じ同じ条件でテスト・サイトを作成したいため。また、 `www.dev.example.com` などの余計なドメインを存在させたくないため。
+＊「wwwを付与せずマルチドメインとして使用する」を選択するのは、本番サイトと同じ条件でテスト・サイトを作成したいため。また、 `www.dev.example.com` などの余計なドメインを存在させたくないため。
 
 
 ## `.htaccess` の設置
@@ -96,7 +96,7 @@ Retype New Password:
 # ディレクトリ一覧の拒否。
 DirectoryIndex index.html index.htm index.shtml index.php index.cgi .ht
 
-# XXX.sakura.ne.jp へのアクセスを拒否（404）。
+# XXX.sakura.ne.jp へのアクセスを拒否。
 RewriteEngine on
 RewriteCond %{HTTP_HOST} .*\.sakura\.ne\.jp$ [nocase]
 RewriteCond %{REMOTE_ADDR} !^27\.133\.139\.(3[2-9]|4[0-7])$
