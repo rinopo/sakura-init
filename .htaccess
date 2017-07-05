@@ -1,5 +1,5 @@
 # ディレクトリ一覧の拒否。
-DirectoryIndex index.html index.htm index.shtml index.php index.cgi .ht
+Options -Indexes
 
 # XXX.sakura.ne.jp へのアクセスを拒否。
 RewriteEngine on

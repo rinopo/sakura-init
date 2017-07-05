@@ -94,7 +94,7 @@ Retype New Password:
 
 ```apache
 # ディレクトリ一覧の拒否。
-DirectoryIndex index.html index.htm index.shtml index.php index.cgi .ht
+Options -Indexes
 
 # XXX.sakura.ne.jp へのアクセスを拒否。
 RewriteEngine on
@@ -103,7 +103,7 @@ RewriteCond %{REMOTE_ADDR} !^27\.133\.139\.(3[2-9]|4[0-7])$
 RewriteRule .* - [forbidden]
 ```
 
-ディレクトリ一覧を禁止するには、（さくらのレンタルサーバーでは `Options -Indexes` は利用できないので、）`IndexIgnore *` を利用する（エラーにならないが何も表示されない）か、上記のように `DirectoryIndex` の最後に `.ht` を記述する（403エラーになる）。
+ディレクトリ一覧を禁止する。
 
 デフォルトのドメイン `XXX.sakura.ne.jp` にアクセスできる必要がないなら、拒否しておく。
 
