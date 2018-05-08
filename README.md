@@ -101,17 +101,12 @@ Retype New Password:
 ＊ここでの設定は、下層に設置したサイト（たとえば上記の `~/www/dev/public` ＝ http://dev.example.com ）へのアクセスに対しても有効となる。
 
 ```apache
-# ディレクトリ一覧の拒否。
-Options -Indexes
-
 # XXX.sakura.ne.jp へのアクセスを拒否。
 RewriteEngine on
 RewriteCond %{HTTP_HOST} .*\.sakura\.ne\.jp$ [nocase]
 RewriteCond %{REMOTE_ADDR} !^27\.133\.139\.(3[2-9]|4[0-7])$
 RewriteRule .* - [forbidden]
 ```
-
-ディレクトリ一覧を禁止する。
 
 デフォルトのドメイン `XXX.sakura.ne.jp` にアクセスできる必要がないなら、拒否しておく。
 

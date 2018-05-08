@@ -1,6 +1,3 @@
-# ディレクトリ一覧の拒否。
-Options -Indexes
-
 # XXX.sakura.ne.jp へのアクセスを拒否。
 RewriteEngine on
 RewriteCond %{HTTP_HOST} .*\.sakura\.ne\.jp$ [nocase]
