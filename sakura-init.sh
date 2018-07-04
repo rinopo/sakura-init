@@ -152,7 +152,7 @@ echo ""
 if [[ ${REPLY} =~ ^[Yy]$ ]]; then
 
   read -p "DBのユーザー名 [${User}]: " -r
-  if [ ${REPLY} == "" ]; then
+  if [ "${REPLY}" == "" ]; then
     readonly Db_user=${User}
     echo ${User}
   else
@@ -164,14 +164,18 @@ if [[ ${REPLY} =~ ^[Yy]$ ]]; then
   readonly Db_password=${REPLY}
   echo ""
 
-  read -p "DBのホスト名（\".db.sakura.ne.jp\"は省略可）: " -r
-  if [[ ${REPLY} =~ ^mysql && ! ${REPLY} =~ \. ]]; then
+  read -p "DBのホスト名: " -r
+  if [[ ${REPLY} =~ ^mysql ]]; then
     readonly Db_host=${REPLY}
   fi
   echo ""
 
   echo ""
-  ssh ${User} "umask 177; curl -fsSL -O ${Repo}/.my.cnf && cat .my.cnf"
+  ssh ${User} "umask 177; curl -fsSL -O ${Repo}/.my.cnf &&\
+    sed -i '' -e 's|%%DB_USER%%|${Db_user}|g' .my.cnf &&\
+    sed -i '' -e 's|%%DB_PASSWORD%%|${Db_password}|g' .my.cnf &&\
+    sed -i '' -e 's|%%DB_HOST%%|${Db_host}|g' .my.cnf &&\
+    cat .my.cnf"
 
 fi
 
