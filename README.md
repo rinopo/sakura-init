@@ -263,7 +263,27 @@ SpamAction	0
 
 ---
 
-## その他
+## その他の設定
+
+### PHP の設定
+
+PHP については初期状態で最新版が選択されているはずなので、特に初期設定の必要はない。
+確認して最新バージョンになっていなければ、なるべく最新バージョン（モジュールモード）が望ましい。
+
+cf. 
+- [PHP提供ポリシー – さくらのサポート情報](https://help.sakura.ad.jp/hc/ja/articles/360000115461)
+- 
+
+### 作業用メールアドレスを作る
+
+
+---
+
+## ブックマーク
+
+---
+
+## その他参考情報
 
 - [rinopo/sakura-user-js](https://github.com/rinopo/sakura-user-js) …… さくらのレンタルサーバのサーバコントロールパネル用の tampermonkey / greasemonkey スクリプト。
 - [さくらのレンタルサーバのMLのカスタマイズ - Qiita](http://qiita.com/rinopo/items/58983a8c83467fb030db)
